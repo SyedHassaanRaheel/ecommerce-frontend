@@ -17,10 +17,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-        email,
-        password
-      });
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://e-commerce-production-e914.up.railway.app',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+      const response = await axiosInstance.post('/auth/login', { email, password });
 
       const { token, user } = response.data;
       
